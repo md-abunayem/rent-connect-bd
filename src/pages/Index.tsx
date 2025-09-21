@@ -62,17 +62,21 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative py-20 px-4">
+      <section className="relative py-20 px-4 overflow-hidden">
         <div className="absolute inset-0 gradient-hero opacity-5"></div>
         <div className="container mx-auto text-center relative">
           <div className="max-w-4xl mx-auto space-y-8">
-            <div className="space-y-4">
+            <div className="space-y-6">
               <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                Find Your Perfect
-                <span className="gradient-hero bg-clip-text text-transparent"> Haven </span>
+                Find Your Perfect{' '}
+                <span className="relative inline-block">
+                  <span className="gradient-hero bg-clip-text text-transparent font-extrabold">
+                    Haven
+                  </span>
+                </span>{' '}
                 in Bangladesh
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Discover verified rental properties with trusted landlords. From cozy rooms to spacious apartments, find your next home with confidence.
               </p>
             </div>
@@ -95,11 +99,11 @@ const Index = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="gradient-primary text-primary-foreground font-medium px-8">
+              <Button size="lg" className="gradient-primary text-primary-foreground font-medium px-8 shadow-medium hover:shadow-strong transition-all">
                 Find a Rental
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Button size="lg" variant="outline" className="font-medium px-8">
+              <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-primary/5 transition-all">
                 List Your Property
               </Button>
             </div>
@@ -108,7 +112,7 @@ const Index = () => {
       </section>
 
       {/* Search Section */}
-      <section className="py-12 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto">
           <SearchBar />
         </div>
@@ -133,9 +137,11 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" variant="outline" className="font-medium px-8">
-              View All Properties
-              <ArrowRight className="w-5 h-5 ml-2" />
+            <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-primary/5 transition-all" asChild>
+              <a href="/search">
+                View All Properties
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </a>
             </Button>
           </div>
         </div>
