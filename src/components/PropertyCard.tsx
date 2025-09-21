@@ -1,6 +1,7 @@
 import { Heart, MapPin, Star, Shield, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Link } from 'react-router-dom';
 
 interface PropertyCardProps {
   property: {
@@ -95,8 +96,10 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
             </span>
             <span className="text-sm text-muted-foreground">/month</span>
           </div>
-          <Button size="sm" variant="outline" className="hover:bg-primary hover:text-primary-foreground">
-            View Details
+          <Button size="sm" variant="outline" className="hover:bg-primary hover:text-primary-foreground" asChild>
+            <Link to={`/property/${property.id}`}>
+              View Details
+            </Link>
           </Button>
         </div>
       </div>
