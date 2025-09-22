@@ -21,45 +21,40 @@ const SearchBar = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <div className="bg-card shadow-medium rounded-2xl p-6 border">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="w-full max-w-4xl mx-auto bg-background shadow-strong rounded-full border border-border/50 p-2">
+        <div className="flex items-center divide-x divide-border">
           {/* Location */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-muted-foreground">Location</label>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-              <Input 
-                placeholder="Dhaka, Chittagong, Sylhet..." 
-                className="pl-10 h-12 border-input focus:border-primary"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
+          <div className="flex-1 px-6 py-3">
+            <label className="block text-xs font-semibold text-foreground mb-1">Where</label>
+            <input
+              type="text"
+              placeholder="Search destinations"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+            />
           </div>
 
           {/* Move-in Date */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-muted-foreground">Move-in Date</label>
-            <div className="relative">
-              <Calendar className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-              <Input 
-                type="date" 
-                className="pl-10 h-12 border-input focus:border-primary"
-                value={moveInDate}
-                onChange={(e) => setMoveInDate(e.target.value)}
-              />
-            </div>
+          <div className="flex-1 px-6 py-3">
+            <label className="block text-xs font-semibold text-foreground mb-1">Check in</label>
+            <input
+              type="date"
+              value={moveInDate}
+              onChange={(e) => setMoveInDate(e.target.value)}
+              className="w-full bg-transparent text-sm text-foreground focus:outline-none"
+            />
           </div>
 
           {/* Property Type */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-muted-foreground">Property Type</label>
-            <select 
-              className="w-full h-12 px-3 py-2 border border-input rounded-md bg-background focus:border-primary focus:outline-none"
+          <div className="flex-1 px-6 py-3">
+            <label className="block text-xs font-semibold text-foreground mb-1">Property type</label>
+            <select
               value={propertyType}
               onChange={(e) => setPropertyType(e.target.value)}
+              className="w-full bg-transparent text-sm text-foreground focus:outline-none"
             >
-              <option value="">Any Type</option>
+              <option value="">Any type</option>
               <option value="apartment">Apartment</option>
               <option value="house">House</option>
               <option value="room">Room</option>
@@ -68,13 +63,13 @@ const SearchBar = () => {
           </div>
 
           {/* Search Button */}
-          <div className="flex items-end">
+          <div className="pl-2">
             <Button 
-              className="w-full h-12 gradient-primary text-primary-foreground font-medium"
               onClick={handleSearch}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full h-12 w-12 p-0 shadow-medium"
+              size="icon"
             >
-              <Search className="w-4 h-4 mr-2" />
-              Search
+              <Search className="w-5 h-5" />
             </Button>
           </div>
         </div>

@@ -62,84 +62,74 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 gradient-hero opacity-5"></div>
+      <section className="relative py-24 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20"></div>
         <div className="container mx-auto text-center relative">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
+          <div className="max-w-5xl mx-auto space-y-12">
+            <div className="space-y-8">
+              <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight tracking-tight">
                 Find Your Perfect{' '}
                 <span className="relative inline-block">
-                  <span className="gradient-hero bg-clip-text text-transparent font-extrabold">
+                  <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent font-black">
                     Haven
                   </span>
-                </span>{' '}
-                in Bangladesh
+                </span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Discover verified rental properties with trusted landlords. From cozy rooms to spacious apartments, find your next home with confidence.
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Discover unique places to stay with trusted hosts around Bangladesh
               </p>
             </div>
-            
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-6 py-6">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Shield className="w-5 h-5 text-accent" />
-                <span className="text-sm font-medium">Verified Properties</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <CheckCircle className="w-5 h-5 text-accent" />
-                <span className="text-sm font-medium">Trusted Landlords</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Users className="w-5 h-5 text-accent" />
-                <span className="text-sm font-medium">50,000+ Happy Tenants</span>
-              </div>
-            </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="gradient-primary text-primary-foreground font-medium px-8 shadow-medium hover:shadow-strong transition-all">
-                Find a Rental
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-primary/5 transition-all">
-                List Your Property
-              </Button>
+            {/* Trust Stats */}
+            <div className="flex justify-center gap-8 text-center">
+              <div>
+                <div className="text-2xl font-bold text-foreground">50K+</div>
+                <div className="text-sm text-muted-foreground">Verified Properties</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-foreground">100K+</div>
+                <div className="text-sm text-muted-foreground">Happy Guests</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-foreground">4.8★</div>
+                <div className="text-sm text-muted-foreground">Average Rating</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Search Section */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-20 px-4">
         <div className="container mx-auto">
           <SearchBar />
         </div>
       </section>
 
       {/* Featured Properties */}
-      <section className="py-16 px-4">
+      <section className="py-20 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Featured Properties
+              Stay anywhere
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Handpicked verified properties from trusted landlords across Bangladesh
+              Explore different types of stays for your next trip
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {mockProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {mockProperties.slice(0, 8).map((property) => (
+              <div key={property.id} className="cursor-pointer">
+                <PropertyCard property={property} />
+              </div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-primary/5 transition-all" asChild>
+          <div className="text-center mt-16">
+            <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-muted transition-all" asChild>
               <a href="/search">
-                View All Properties
+                Show all stays
                 <ArrowRight className="w-5 h-5 ml-2" />
               </a>
             </Button>

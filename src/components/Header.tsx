@@ -3,45 +3,41 @@ import { Button } from '@/components/ui/button';
 
 const Header = () => {
   return (
-    <header className="w-full border-b bg-background/80 backdrop-blur-md sticky top-0 z-50">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <header className="w-full border-b bg-background/95 backdrop-blur-md sticky top-0 z-50 shadow-soft">
+      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <Building2 className="w-5 h-5 text-primary-foreground" />
           </div>
-          <span className="text-xl font-bold text-foreground">HavenHub</span>
+          <span className="text-xl font-bold text-primary">HavenHub</span>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            Find Rentals
+        <nav className="hidden lg:flex items-center gap-8">
+          <a href="#" className="text-foreground hover:text-primary transition-colors font-medium">
+            Places to stay
           </a>
           <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            List Property
+            Experiences
           </a>
           <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            How it Works
-          </a>
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            About
+            Online Experiences
           </a>
         </nav>
 
         {/* Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" size="sm">
-            <User className="w-4 h-4 mr-2" />
-            Sign In
+          <Button variant="ghost" size="sm" className="font-medium">
+            Become a Host
           </Button>
-          <Button size="sm" className="gradient-primary">
-            List Your Property
+          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10">
+            <User className="w-5 h-5" />
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
-        <Button variant="ghost" size="sm" className="md:hidden">
+        <Button variant="ghost" size="icon" className="md:hidden rounded-full">
           <Menu className="w-5 h-5" />
         </Button>
       </div>
