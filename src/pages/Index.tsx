@@ -1,8 +1,42 @@
-import { ArrowRight, Shield, Users, MapPin, Star, CheckCircle } from 'lucide-react';
+import { ArrowRight, Shield, Users, MapPin, Star, CheckCircle, Home, Building, Hotel, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import PropertyCard from '@/components/PropertyCard';
+import CategoryCard from '@/components/CategoryCard';
+import FloatingActionButton from '@/components/FloatingActionButton';
+
+// Mock data for categories
+const categories = [
+  {
+    title: 'Apartments',
+    description: 'Modern apartments in prime locations',
+    icon: Building,
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=400&fit=crop',
+    count: 1200
+  },
+  {
+    title: 'Houses',
+    description: 'Spacious houses for families',
+    icon: Home,
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=400&fit=crop',
+    count: 800
+  },
+  {
+    title: 'Student Housing',
+    description: 'Affordable options near universities',
+    icon: Users,
+    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=400&fit=crop',
+    count: 600
+  },
+  {
+    title: 'Luxury Stays',
+    description: 'Premium properties with top amenities',
+    icon: Hotel,
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=400&fit=crop',
+    count: 300
+  }
+];
 
 // Mock data for properties
 const mockProperties = [
@@ -106,28 +140,50 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Properties */}
+      {/* Categories Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 animate-slide-up">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Stay anywhere
+              Browse by category
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore different types of stays for your next trip
+              Find the perfect type of accommodation for your needs
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+            {categories.map((category, index) => (
+              <div key={category.title} className="animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <CategoryCard {...category} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Properties */}
+      <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 animate-slide-up">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Featured stays
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Handpicked properties with exceptional ratings
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {mockProperties.slice(0, 8).map((property) => (
-              <div key={property.id} className="cursor-pointer">
+            {mockProperties.slice(0, 8).map((property, index) => (
+              <div key={property.id} className="cursor-pointer animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <PropertyCard property={property} />
               </div>
             ))}
           </div>
 
           <div className="text-center mt-16">
-            <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-muted transition-all" asChild>
+            <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-muted hover:scale-105 transition-all shadow-medium" asChild>
               <a href="/search">
                 Show all stays
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -138,9 +194,9 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-muted/20">
+      <section className="py-20 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16 animate-slide-up">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               How HavenHub Works
             </h2>
@@ -149,35 +205,41 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center mx-auto">
-                <MapPin className="w-8 h-8 text-primary-foreground" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="text-center space-y-6 group animate-scale-in">
+              <div className="w-20 h-20 gradient-primary rounded-3xl flex items-center justify-center mx-auto shadow-strong group-hover:shadow-medium transition-all duration-300 animate-float">
+                <MapPin className="w-10 h-10 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground">Search & Filter</h3>
-              <p className="text-muted-foreground">
-                Find properties that match your preferences with our advanced search and filtering options.
-              </p>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">Search & Filter</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Find properties that match your preferences with our advanced search and filtering options powered by smart algorithms.
+                </p>
+              </div>
             </div>
 
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center mx-auto">
-                <Shield className="w-8 h-8 text-primary-foreground" />
+            <div className="text-center space-y-6 group animate-scale-in" style={{ animationDelay: '0.2s' }}>
+              <div className="w-20 h-20 gradient-primary rounded-3xl flex items-center justify-center mx-auto shadow-strong group-hover:shadow-medium transition-all duration-300 animate-float" style={{ animationDelay: '2s' }}>
+                <Shield className="w-10 h-10 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground">Verify & Connect</h3>
-              <p className="text-muted-foreground">
-                Connect with verified landlords and view authentic property details with confidence.
-              </p>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">Verify & Connect</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Connect with verified landlords and view authentic property details with confidence through our secure platform.
+                </p>
+              </div>
             </div>
 
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center mx-auto">
-                <CheckCircle className="w-8 h-8 text-primary-foreground" />
+            <div className="text-center space-y-6 group animate-scale-in" style={{ animationDelay: '0.4s' }}>
+              <div className="w-20 h-20 gradient-primary rounded-3xl flex items-center justify-center mx-auto shadow-strong group-hover:shadow-medium transition-all duration-300 animate-float" style={{ animationDelay: '4s' }}>
+                <CheckCircle className="w-10 h-10 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground">Move In</h3>
-              <p className="text-muted-foreground">
-                Complete secure digital agreements and move into your new home with peace of mind.
-              </p>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">Move In</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Complete secure digital agreements and move into your new home with complete peace of mind and support.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -219,29 +281,67 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 bg-muted/30 border-t">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
-              <Shield className="w-5 h-5 text-primary-foreground" />
+      <footer className="py-16 px-4 bg-gradient-to-t from-muted/40 to-background border-t">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-6 hover:scale-105 transition-transform cursor-pointer">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center shadow-strong">
+                <Shield className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <span className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                HavenHub
+              </span>
             </div>
-            <span className="text-xl font-bold text-foreground">HavenHub</span>
+            <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
+              Your trusted rental marketplace for Bangladesh and beyond
+            </p>
           </div>
-          <p className="text-muted-foreground mb-8">
-            Your trusted rental marketplace for Bangladesh and beyond
-          </p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors">About Us</a>
-            <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-foreground transition-colors">Contact</a>
-            <a href="#" className="hover:text-foreground transition-colors">Help Center</a>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div className="space-y-4">
+              <h4 className="font-semibold text-foreground">Company</h4>
+              <div className="space-y-2">
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">About Us</a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Careers</a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Press</a>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <h4 className="font-semibold text-foreground">Community</h4>
+              <div className="space-y-2">
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Blog</a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Forum</a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Events</a>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <h4 className="font-semibold text-foreground">Support</h4>
+              <div className="space-y-2">
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Help Center</a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Contact</a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Safety</a>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <h4 className="font-semibold text-foreground">Legal</h4>
+              <div className="space-y-2">
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Terms</a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Privacy</a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">Cookies</a>
+              </div>
+            </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-border text-sm text-muted-foreground">
-            © 2024 HavenHub. All rights reserved.
+          
+          <div className="pt-8 border-t border-border text-center">
+            <p className="text-muted-foreground">
+              © 2024 HavenHub. All rights reserved. Made with ❤️ in Bangladesh
+            </p>
           </div>
         </div>
       </footer>
+
+      {/* Floating Action Button */}
+      <FloatingActionButton />
     </div>
   );
 };
