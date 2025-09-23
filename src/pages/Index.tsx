@@ -5,6 +5,7 @@ import SearchBar from '@/components/SearchBar';
 import PropertyCard from '@/components/PropertyCard';
 import CategoryCard from '@/components/CategoryCard';
 import FloatingActionButton from '@/components/FloatingActionButton';
+import heroImage from '@/assets/hero-bg.jpg';
 
 // Mock data for categories
 const categories = [
@@ -96,47 +97,54 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative py-24 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20"></div>
-        <div className="container mx-auto text-center relative">
-          <div className="max-w-5xl mx-auto space-y-12">
-            <div className="space-y-8">
-              <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight tracking-tight">
+      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src={heroImage} 
+            alt="Beautiful rental property interior" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 text-center">
+          <div className="space-y-8">
+            {/* Main Heading */}
+            <div className="space-y-4">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
                 Find Your Perfect{' '}
-                <span className="relative inline-block">
-                  <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent font-black">
-                    Haven
-                  </span>
-                </span>
+                <span className="text-primary">Haven</span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
                 Discover unique places to stay with trusted hosts around Bangladesh
               </p>
             </div>
 
+            {/* Search Bar */}
+            <div className="flex justify-center">
+              <div className="w-full max-w-3xl">
+                <SearchBar />
+              </div>
+            </div>
+
             {/* Trust Stats */}
-            <div className="flex justify-center gap-8 text-center">
-              <div>
-                <div className="text-2xl font-bold text-foreground">50K+</div>
-                <div className="text-sm text-muted-foreground">Verified Properties</div>
+            <div className="flex justify-center gap-6 md:gap-12 text-center pt-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
+                <div className="text-xl md:text-2xl font-bold text-white">50K+</div>
+                <div className="text-xs md:text-sm text-white/80">Verified Properties</div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-foreground">100K+</div>
-                <div className="text-sm text-muted-foreground">Happy Guests</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
+                <div className="text-xl md:text-2xl font-bold text-white">100K+</div>
+                <div className="text-xs md:text-sm text-white/80">Happy Guests</div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-foreground">4.8★</div>
-                <div className="text-sm text-muted-foreground">Average Rating</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
+                <div className="text-xl md:text-2xl font-bold text-white">4.8★</div>
+                <div className="text-xs md:text-sm text-white/80">Average Rating</div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Search Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <SearchBar />
         </div>
       </section>
 
