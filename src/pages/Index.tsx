@@ -8,32 +8,32 @@ import FloatingActionButton from '@/components/FloatingActionButton';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import heroImage from '@/assets/hero-bg.jpg';
 
-// Mock data for categories
+// Mock data for categories focused on Students and Industry
 const categories = [
   {
-    title: 'Apartments',
-    description: 'Modern apartments in prime locations',
-    icon: Building,
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=400&fit=crop',
+    title: 'Student Dorms',
+    description: 'Affordable shared dorms near universities',
+    icon: Users,
+    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=400&fit=crop',
     count: 1200
   },
   {
-    title: 'Houses',
-    description: 'Spacious houses for families',
-    icon: Home,
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=400&fit=crop',
+    title: 'Industry Housing',
+    description: 'Furnished apartments near industrial areas',
+    icon: Building,
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=400&fit=crop',
     count: 800
   },
   {
-    title: 'Student Housing',
-    description: 'Affordable options near universities',
-    icon: Users,
-    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=400&fit=crop',
+    title: 'Shared Rooms',
+    description: 'Budget-friendly shared accommodations',
+    icon: Home,
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=400&fit=crop',
     count: 600
   },
   {
-    title: 'Luxury Stays',
-    description: 'Premium properties with top amenities',
+    title: 'Studio Apartments',
+    description: 'Compact studios for students & professionals',
     icon: Hotel,
     image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=400&fit=crop',
     count: 300
@@ -346,11 +346,11 @@ const Index = () => {
             {/* Main Heading */}
             <div className="space-y-4">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-                Find Your Perfect{' '}
-                <span className="text-primary">Haven</span>
+                Student & Industry{' '}
+                <span className="text-primary">Housing Hub</span>
               </h1>
               <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-                Discover unique places to stay with trusted hosts around Bangladesh
+                Affordable housing solutions for students and industry workers across Bangladesh
               </p>
             </div>
 
@@ -402,11 +402,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Popular homes in Dhaka */}
+      {/* Student housing in Dhaka */}
       <section className="py-8 px-4">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">Popular homes in Dhaka</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Student housing near universities in Dhaka</h2>
             <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </div>
 
@@ -424,11 +424,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Available next month in Chittagong */}
+      {/* Industry worker housing in Chittagong */}
       <section className="py-8 px-4">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">Available next month in Chittagong</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Industry worker housing in Chittagong</h2>
             <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </div>
 
@@ -446,11 +446,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stay in Sylhet */}
+      {/* Affordable options in Sylhet */}
       <section className="py-8 px-4">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">Stay in Sylhet</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Budget-friendly options in Sylhet</h2>
             <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </div>
 
