@@ -1,10 +1,11 @@
-import { ArrowRight, Shield, Users, MapPin, Star, CheckCircle, Home, Building, Hotel, UserCheck } from 'lucide-react';
+import { ArrowRight, Shield, Users, MapPin, Star, CheckCircle, Home, Building, Hotel, UserCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import PropertyCard from '@/components/PropertyCard';
 import CategoryCard from '@/components/CategoryCard';
 import FloatingActionButton from '@/components/FloatingActionButton';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import heroImage from '@/assets/hero-bg.jpg';
 
 // Mock data for categories
@@ -39,55 +40,286 @@ const categories = [
   }
 ];
 
-// Mock data for properties
-const mockProperties = [
+// Mock data for properties by sections
+const popularInDhaka = [
   {
     id: '1',
-    title: 'Modern 2BHK Apartment in Gulshan',
+    title: 'Place to stay in Gulshan',
     location: 'Gulshan 2, Dhaka',
     price: 35000,
     images: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop'],
-    rating: 4.8,
+    rating: 4.94,
     reviews: 24,
     type: 'Apartment',
     verified: true,
-    features: ['2 Bedrooms', 'Furnished', 'AC', 'Parking']
+    features: ['2 Bedrooms', 'Furnished'],
+    guestFavourite: true
   },
   {
     id: '2',
-    title: 'Cozy Studio Near NSU Campus',
-    location: 'Bashundhara, Dhaka',
-    price: 18000,
+    title: 'Apartment in Dhanmondi',
+    location: 'Dhanmondi 15, Dhaka',
+    price: 57000,
     images: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop'],
-    rating: 4.6,
+    rating: 4.87,
     reviews: 18,
-    type: 'Studio',
+    type: 'Apartment',
     verified: true,
-    features: ['1 Room', 'Furnished', 'WiFi', 'Security']
+    features: ['3 Bedrooms', 'Garden'],
+    guestFavourite: true
   },
   {
     id: '3',
-    title: 'Spacious Family House in Dhanmondi',
-    location: 'Dhanmondi 15, Dhaka',
-    price: 55000,
+    title: 'Condo in Uttara',
+    location: 'Uttara Sector 4, Dhaka',
+    price: 65000,
     images: ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop'],
-    rating: 4.9,
+    rating: 4.83,
     reviews: 32,
     type: 'House',
     verified: true,
-    features: ['3 Bedrooms', 'Garden', 'Parking', 'Rooftop']
+    features: ['4 Bedrooms', 'Parking'],
+    guestFavourite: false
   },
   {
     id: '4',
-    title: 'Shared Room for Students',
-    location: 'Uttara Sector 4, Dhaka',
-    price: 8000,
+    title: 'Apartment in Banani',
+    location: 'Banani, Dhaka',
+    price: 79000,
     images: ['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop'],
-    rating: 4.3,
+    rating: 4.87,
     reviews: 15,
-    type: 'Shared',
+    type: 'Apartment',
     verified: false,
-    features: ['Shared Kitchen', 'WiFi', 'Study Area', 'AC']
+    features: ['2 Bedrooms', 'Modern'],
+    guestFavourite: true
+  },
+  {
+    id: '5',
+    title: 'Place to stay in Bashundhara',
+    location: 'Bashundhara R/A, Dhaka',
+    price: 45000,
+    images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop'],
+    rating: 4.95,
+    reviews: 28,
+    type: 'Apartment',
+    verified: true,
+    features: ['3 Bedrooms', 'Pool'],
+    guestFavourite: false
+  },
+  {
+    id: '6',
+    title: 'Room in Mirpur',
+    location: 'Mirpur DOHS, Dhaka',
+    price: 44000,
+    images: ['https://images.unsplash.com/photo-1493663284031-b7e3aaa4cab7?w=400&h=300&fit=crop'],
+    rating: 4.88,
+    reviews: 41,
+    type: 'Room',
+    verified: true,
+    features: ['1 Room', 'AC'],
+    guestFavourite: false
+  },
+  {
+    id: '7',
+    title: 'Condo in Wari',
+    location: 'Wari, Dhaka',
+    price: 76000,
+    images: ['https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&h=300&fit=crop'],
+    rating: 4.93,
+    reviews: 19,
+    type: 'Condo',
+    verified: true,
+    features: ['2 Bedrooms', 'Modern'],
+    guestFavourite: false
+  }
+];
+
+const availableInChittagong = [
+  {
+    id: '8',
+    title: 'Apartment in Chittagong',
+    location: 'GEC Circle, Chittagong',
+    price: 54000,
+    images: ['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop'],
+    rating: 4.87,
+    reviews: 22,
+    type: 'Apartment',
+    verified: true,
+    features: ['2 Bedrooms', 'Sea View'],
+    guestFavourite: true
+  },
+  {
+    id: '9',
+    title: 'Apartment in Agrabad',
+    location: 'Agrabad, Chittagong',
+    price: 78000,
+    images: ['https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=400&h=300&fit=crop'],
+    rating: 4.94,
+    reviews: 31,
+    type: 'Apartment',
+    verified: true,
+    features: ['3 Bedrooms', 'Luxury'],
+    guestFavourite: true
+  },
+  {
+    id: '10',
+    title: 'Room in Panchlaish',
+    location: 'Panchlaish, Chittagong',
+    price: 59000,
+    images: ['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400&h=300&fit=crop'],
+    rating: 4.94,
+    reviews: 16,
+    type: 'Room',
+    verified: true,
+    features: ['Private Bath', 'Garden'],
+    guestFavourite: false
+  },
+  {
+    id: '11',
+    title: 'Apartment in Khulshi',
+    location: 'Khulshi, Chittagong',
+    price: 48000,
+    images: ['https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=400&h=300&fit=crop'],
+    rating: 4.91,
+    reviews: 27,
+    type: 'Apartment',
+    verified: true,
+    features: ['2 Bedrooms', 'Hill View'],
+    guestFavourite: true
+  },
+  {
+    id: '12',
+    title: 'Townhouse in Halishahar',
+    location: 'Halishahar, Chittagong',
+    price: 45000,
+    images: ['https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop'],
+    rating: 5.0,
+    reviews: 8,
+    type: 'Townhouse',
+    verified: true,
+    features: ['4 Bedrooms', 'Garden'],
+    guestFavourite: false
+  },
+  {
+    id: '13',
+    title: 'Room in Nasirabad',
+    location: 'Nasirabad, Chittagong',
+    price: 51000,
+    images: ['https://images.unsplash.com/photo-1501183638710-841dd1904471?w=400&h=300&fit=crop'],
+    rating: 4.81,
+    reviews: 35,
+    type: 'Room',
+    verified: true,
+    features: ['Modern', 'WiFi'],
+    guestFavourite: false
+  },
+  {
+    id: '14',
+    title: 'Room in CDA R/A',
+    location: 'CDA R/A, Chittagong',
+    price: 24000,
+    images: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop'],
+    rating: 4.94,
+    reviews: 12,
+    type: 'Room',
+    verified: true,
+    features: ['Student Friendly', 'AC'],
+    guestFavourite: false
+  }
+];
+
+const stayInSylhet = [
+  {
+    id: '15',
+    title: 'Room in Sylhet',
+    location: 'Zindabazar, Sylhet',
+    price: 103000,
+    images: ['https://images.unsplash.com/photo-1560448204-61dc36dc98c8?w=400&h=300&fit=crop'],
+    rating: 4.96,
+    reviews: 45,
+    type: 'Room',
+    verified: true,
+    features: ['Tea Garden View', 'Premium'],
+    guestFavourite: true
+  },
+  {
+    id: '16',
+    title: 'Room in Amborkhana',
+    location: 'Amborkhana, Sylhet',
+    price: 119000,
+    images: ['https://images.unsplash.com/photo-1571508601382-5bb0e2ae0ff3?w=400&h=300&fit=crop'],
+    rating: 4.99,
+    reviews: 23,
+    type: 'Room',
+    verified: true,
+    features: ['Hill View', 'Luxury'],
+    guestFavourite: true
+  },
+  {
+    id: '17',
+    title: 'Room in Tilagor',
+    location: 'Tilagor, Sylhet',
+    price: 153000,
+    images: ['https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop'],
+    rating: 4.95,
+    reviews: 18,
+    type: 'Room',
+    verified: true,
+    features: ['Nature View', 'Peaceful'],
+    guestFavourite: false
+  },
+  {
+    id: '18',
+    title: 'Room in Bondor Bazar',
+    location: 'Bondor Bazar, Sylhet',
+    price: 158000,
+    images: ['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop'],
+    rating: 4.99,
+    reviews: 31,
+    type: 'Room',
+    verified: true,
+    features: ['City Center', 'Modern'],
+    guestFavourite: false
+  },
+  {
+    id: '19',
+    title: 'Room in Lamabazar',
+    location: 'Lamabazar, Sylhet',
+    price: 172000,
+    images: ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop'],
+    rating: 4.94,
+    reviews: 28,
+    type: 'Room',
+    verified: true,
+    features: ['Heritage Area', 'Unique'],
+    guestFavourite: false
+  },
+  {
+    id: '20',
+    title: 'Room in Shah Poran',
+    location: 'Shah Poran, Sylhet',
+    price: 152000,
+    images: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop'],
+    rating: 4.98,
+    reviews: 17,
+    type: 'Room',
+    verified: true,
+    features: ['Spiritual Area', 'Quiet'],
+    guestFavourite: false
+  },
+  {
+    id: '21',
+    title: 'Room in Mazar Gate',
+    location: 'Mazar Gate, Sylhet',
+    price: 125000,
+    images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop'],
+    rating: 4.97,
+    reviews: 22,
+    type: 'Room',
+    verified: true,
+    features: ['Traditional', 'Cultural'],
+    guestFavourite: false
   }
 ];
 
@@ -170,27 +402,71 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Properties */}
-      <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
+      {/* Popular homes in Dhaka */}
+      <section className="py-8 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-16 animate-slide-up">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Featured stays
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Handpicked properties with exceptional ratings
-            </p>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-semibold text-foreground">Popular homes in Dhaka</h2>
+            <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {mockProperties.slice(0, 8).map((property, index) => (
-              <div key={property.id} className="cursor-pointer animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <PropertyCard property={property} />
-              </div>
-            ))}
+          <Carousel className="w-full">
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {popularInDhaka.map((property) => (
+                <CarouselItem key={property.id} className="pl-2 md:pl-4 basis-[280px] md:basis-[320px]">
+                  <PropertyCard property={property} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Available next month in Chittagong */}
+      <section className="py-8 px-4">
+        <div className="container mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-semibold text-foreground">Available next month in Chittagong</h2>
+            <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </div>
 
-          <div className="text-center mt-16">
+          <Carousel className="w-full">
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {availableInChittagong.map((property) => (
+                <CarouselItem key={property.id} className="pl-2 md:pl-4 basis-[280px] md:basis-[320px]">
+                  <PropertyCard property={property} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Stay in Sylhet */}
+      <section className="py-8 px-4">
+        <div className="container mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-semibold text-foreground">Stay in Sylhet</h2>
+            <ChevronRight className="w-6 h-6 text-muted-foreground" />
+          </div>
+
+          <Carousel className="w-full">
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {stayInSylhet.map((property) => (
+                <CarouselItem key={property.id} className="pl-2 md:pl-4 basis-[280px] md:basis-[320px]">
+                  <PropertyCard property={property} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
+
+          <div className="text-center mt-12">
             <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-muted hover:scale-105 transition-all shadow-medium" asChild>
               <a href="/search">
                 Show all stays

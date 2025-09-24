@@ -17,6 +17,7 @@ interface PropertyCardProps {
     type: string;
     verified: boolean;
     features: string[];
+    guestFavourite?: boolean;
   };
 }
 
@@ -77,13 +78,12 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
             />
           </button>
 
-          {/* Rating Badge */}
-          <div className="absolute top-3 left-3 bg-white rounded-lg px-2 py-1 shadow-sm">
-            <div className="flex items-center gap-1">
-              <Star className="w-3 h-3 fill-black text-black" />
-              <span className="text-xs font-semibold text-black">{property.rating}</span>
+          {/* Guest Favourite Badge */}
+          {property.guestFavourite && (
+            <div className="absolute top-3 left-3 bg-white rounded-lg px-2 py-1 shadow-sm">
+              <span className="text-xs font-semibold text-black">Guest favourite</span>
             </div>
-          </div>
+          )}
 
           {/* Navigation Arrows (only show if multiple images and on hover) */}
           {property.images.length > 1 && (
@@ -125,21 +125,17 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
         {/* Content */}
         <div className="pt-3 space-y-1">
-          {/* Location and Rating Row */}
+          {/* Location and Rating */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1 text-gray-700">
-              <span className="font-semibold text-sm truncate">{property.location}</span>
+            <span className="font-semibold text-sm text-gray-900 truncate">{property.location}</span>
+            <div className="flex items-center gap-1">
+              <Star className="w-3 h-3 fill-gray-900 text-gray-900" />
+              <span className="text-sm font-medium text-gray-900">{property.rating}</span>
             </div>
-            {property.verified && (
-              <div className="flex items-center gap-1 text-xs text-gray-600">
-                <Shield className="w-3 h-3 text-green-600" />
-                <span>Verified</span>
-              </div>
-            )}
           </div>
 
           {/* Property Title */}
-          <h3 className="text-gray-600 text-sm truncate font-normal">
+          <h3 className="text-gray-600 text-sm truncate">
             {property.title}
           </h3>
 
