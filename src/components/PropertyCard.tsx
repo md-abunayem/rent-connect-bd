@@ -148,9 +148,9 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           <div className="pt-1">
             <div className="flex items-baseline gap-1">
               <span className="font-semibold text-gray-900">
-                ৳{Math.floor(property.price / 30).toLocaleString()}
+                ৳{property.price.toLocaleString()}
               </span>
-              <span className="text-gray-600 text-sm font-normal">night</span>
+              <span className="text-gray-600 text-sm font-normal">month</span>
             </div>
           </div>
         </div>
