@@ -5,6 +5,9 @@ import SearchBar from '@/components/SearchBar';
 import PropertyCard from '@/components/PropertyCard';
 import CategoryCard from '@/components/CategoryCard';
 import FloatingActionButton from '@/components/FloatingActionButton';
+import PricingPlans from '@/components/PricingPlans';
+import RevenueStats from '@/components/RevenueStats';
+import PremiumFeatures from '@/components/PremiumFeatures';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import heroImage from '@/assets/hero-bg.jpg';
 
@@ -530,6 +533,15 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Revenue Stats Section */}
+      <RevenueStats />
+
+      {/* Premium Features Section */}
+      <PremiumFeatures />
+
+      {/* Pricing Plans Section */}
+      <PricingPlans />
 
       {/* Stats Section */}
       <section className="py-16 px-4">
