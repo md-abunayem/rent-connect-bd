@@ -1,11 +1,10 @@
-import { ArrowRight, Shield, Users, MapPin, Star, CheckCircle, Home, Building, Hotel, UserCheck, ChevronLeft, ChevronRight, GraduationCap, HardHat, Bed, Wifi, Zap, Globe, Smartphone, Sparkles } from 'lucide-react';
+import { ArrowRight, Shield, Users, MapPin, Star, CheckCircle, Home, Building, Hotel, UserCheck, ChevronLeft, ChevronRight, GraduationCap, HardHat, Bed, Wifi } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import PropertyCard from '@/components/PropertyCard';
 import CategoryCard from '@/components/CategoryCard';
 import FloatingActionButton from '@/components/FloatingActionButton';
-import LanguageTranslator from '@/components/LanguageTranslator';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import heroImage from '@/assets/hero-bg.jpg';
 
@@ -332,94 +331,54 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 gradient-hero">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20"></div>
-          <div className="absolute inset-0">
-            {/* Floating elements */}
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float"></div>
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-            <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }}></div>
-          </div>
+      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src={heroImage} 
+            alt="Beautiful rental property interior" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
         </div>
         
         {/* Content */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 text-center">
-          <div className="space-y-12">
-            {/* Tech Badge */}
-            <div className="flex justify-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white animate-scale-in">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium">Next-Gen Housing Platform</span>
-                <Zap className="w-4 h-4 text-accent" />
-              </div>
-            </div>
-
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 text-center">
+          <div className="space-y-8">
             {/* Main Heading */}
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight tracking-tight">
-                Smart Housing for{' '}
-                <span className="bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
-                  Students & Workers
-                </span>
+            <div className="space-y-4">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
+                Student Dorms &{' '}
+                <span className="text-primary">Industry Housing</span>
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-                AI-powered platform connecting students and industry workers with verified, affordable accommodation across Bangladesh
+              <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+                Affordable, secure accommodation for students and industry workers across Bangladesh
               </p>
             </div>
 
             {/* Search Bar */}
-            <div className="flex justify-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <div className="flex justify-center">
               <div className="w-full max-w-3xl">
                 <SearchBar />
               </div>
             </div>
 
-            {/* Tech Stats */}
-            <div className="flex flex-wrap justify-center gap-6 md:gap-12 text-center pt-8 animate-slide-up" style={{ animationDelay: '0.6s' }}>
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl px-6 py-4 border border-white/20 hover:bg-white/15 transition-all hover:scale-105">
-                <div className="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
-                  <Globe className="w-6 h-6 text-primary" />
-                  25K+
-                </div>
-                <div className="text-sm md:text-base text-white/80">Smart Student Beds</div>
+            {/* Trust Stats */}
+            <div className="flex justify-center gap-6 md:gap-12 text-center pt-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
+                <div className="text-xl md:text-2xl font-bold text-white">25K+</div>
+                <div className="text-xs md:text-sm text-white/80">Student Beds</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl px-6 py-4 border border-white/20 hover:bg-white/15 transition-all hover:scale-105">
-                <div className="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
-                  <Zap className="w-6 h-6 text-accent" />
-                  15K+
-                </div>
-                <div className="text-sm md:text-base text-white/80">AI-Verified Housing</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
+                <div className="text-xl md:text-2xl font-bold text-white">15K+</div>
+                <div className="text-xs md:text-sm text-white/80">Worker Housing</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl px-6 py-4 border border-white/20 hover:bg-white/15 transition-all hover:scale-105">
-                <div className="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
-                  <Shield className="w-6 h-6 text-primary-light" />
-                  99.8%
-                </div>
-                <div className="text-sm md:text-base text-white/80">Safety Score</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
+                <div className="text-xl md:text-2xl font-bold text-white">4.5★</div>
+                <div className="text-xs md:text-sm text-white/80">Safety Rating</div>
               </div>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 animate-slide-up" style={{ animationDelay: '0.9s' }}>
-              <Button size="lg" className="gradient-primary text-lg px-8 py-4 h-auto rounded-full shadow-glow hover:scale-105 transition-all">
-                <Smartphone className="w-5 h-5 mr-2" />
-                Find Housing Now
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-4 h-auto rounded-full border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm">
-                <Building className="w-5 h-5 mr-2" />
-                List Your Property
-              </Button>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Language Translator Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-background to-secondary/20">
-        <div className="container mx-auto">
-          <LanguageTranslator />
         </div>
       </section>
 
@@ -427,21 +386,17 @@ const Index = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-slide-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 mb-6">
-              <Sparkles className="w-4 h-4" />
-              <span className="text-sm font-medium">Smart Categories</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent mb-4">
-              Choose Your Tech-Enabled Housing
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Choose Your Housing Type
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              AI-powered matching for students and workers with verified, tech-integrated accommodation
+              Whether you're a student or worker, find accommodation that fits your needs and budget
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {categories.map((category, index) => (
-              <div key={category.title} className="animate-scale-in hover-lift" style={{ animationDelay: `${index * 0.1}s` }}>
+              <div key={category.title} className="animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CategoryCard {...category} />
               </div>
             ))}
@@ -524,50 +479,52 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works - Tech Version */}
-      <section className="py-20 px-4 bg-gradient-to-br from-primary/5 to-accent/5">
+      {/* How It Works */}
+      <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-slide-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent border border-accent/20 mb-6">
-              <Zap className="w-4 h-4" />
-              <span className="text-sm font-medium">AI-Powered Process</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent mb-4">
-              How Our Smart Platform Works
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              How Student & Worker Housing Works
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Advanced AI matching system connects students and workers with perfect accommodation in seconds
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Simple process to find affordable, safe accommodation for students and workers
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center space-y-6 group animate-scale-in">
-              <div className="w-24 h-24 gradient-tech rounded-3xl flex items-center justify-center mx-auto shadow-glow group-hover:scale-110 transition-all duration-300 animate-float">
-                <Smartphone className="w-12 h-12 text-white" />
+              <div className="w-20 h-20 gradient-primary rounded-3xl flex items-center justify-center mx-auto shadow-strong group-hover:shadow-medium transition-all duration-300 animate-float">
+                <MapPin className="w-10 h-10 text-primary-foreground" />
               </div>
               <div className="space-y-3">
-                <h3 className="text-xl font-semibold text-foreground">AI-Powered Search</h3>
-                <p className="text-muted-foreground">Smart algorithms match you with perfect accommodation based on your preferences, budget, and location</p>
-              </div>
-            </div>
-
-            <div className="text-center space-y-6 group animate-scale-in" style={{ animationDelay: '0.1s' }}>
-              <div className="w-24 h-24 gradient-tech rounded-3xl flex items-center justify-center mx-auto shadow-glow group-hover:scale-110 transition-all duration-300 animate-float" style={{ animationDelay: '2s' }}>
-                <Shield className="w-12 h-12 text-white" />
-              </div>
-              <div className="space-y-3">
-                <h3 className="text-xl font-semibold text-foreground">Blockchain Verification</h3>
-                <p className="text-muted-foreground">Every property and landlord verified through our advanced security system with digital identity proof</p>
+                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">Search by Budget</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Find dorms and housing that fit your student budget or worker salary with transparent pricing and no hidden fees.
+                </p>
               </div>
             </div>
 
             <div className="text-center space-y-6 group animate-scale-in" style={{ animationDelay: '0.2s' }}>
-              <div className="w-24 h-24 gradient-tech rounded-3xl flex items-center justify-center mx-auto shadow-glow group-hover:scale-110 transition-all duration-300 animate-float" style={{ animationDelay: '4s' }}>
-                <Zap className="w-12 h-12 text-white" />
+              <div className="w-20 h-20 gradient-primary rounded-3xl flex items-center justify-center mx-auto shadow-strong group-hover:shadow-medium transition-all duration-300 animate-float" style={{ animationDelay: '2s' }}>
+                <Shield className="w-10 h-10 text-primary-foreground" />
               </div>
               <div className="space-y-3">
-                <h3 className="text-xl font-semibold text-foreground">Instant Booking</h3>
-                <p className="text-muted-foreground">Smart contracts enable instant booking with secure payments and 24/7 AI-powered support</p>
+                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">Safe & Verified</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  All dorms and worker housing are safety-checked and verified for basic amenities, security, and cleanliness standards.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-center space-y-6 group animate-scale-in" style={{ animationDelay: '0.4s' }}>
+              <div className="w-20 h-20 gradient-primary rounded-3xl flex items-center justify-center mx-auto shadow-strong group-hover:shadow-medium transition-all duration-300 animate-float" style={{ animationDelay: '4s' }}>
+                <CheckCircle className="w-10 h-10 text-primary-foreground" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">Quick Move-in</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Simple documentation and flexible lease terms designed for students and workers. Move in within days, not weeks.
+                </p>
               </div>
             </div>
           </div>
