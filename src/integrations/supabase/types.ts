@@ -14,7 +14,93 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string | null
+          full_name: string
+          id: string
+          phone: string | null
+          updated_at: string | null
+          user_type: Database["public"]["Enums"]["user_type"]
+          verification_status:
+            | Database["public"]["Enums"]["verification_status"]
+            | null
+        }
+        Insert: {
+          created_at?: string | null
+          full_name: string
+          id: string
+          phone?: string | null
+          updated_at?: string | null
+          user_type: Database["public"]["Enums"]["user_type"]
+          verification_status?:
+            | Database["public"]["Enums"]["verification_status"]
+            | null
+        }
+        Update: {
+          created_at?: string | null
+          full_name?: string
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+          user_type?: Database["public"]["Enums"]["user_type"]
+          verification_status?:
+            | Database["public"]["Enums"]["verification_status"]
+            | null
+        }
+        Relationships: []
+      }
+      verification_documents: {
+        Row: {
+          document_type: Database["public"]["Enums"]["document_type"]
+          file_url: string
+          id: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: Database["public"]["Enums"]["verification_status"] | null
+          submitted_at: string | null
+          user_id: string
+        }
+        Insert: {
+          document_type: Database["public"]["Enums"]["document_type"]
+          file_url: string
+          id?: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["verification_status"] | null
+          submitted_at?: string | null
+          user_id: string
+        }
+        Update: {
+          document_type?: Database["public"]["Enums"]["document_type"]
+          file_url?: string
+          id?: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["verification_status"] | null
+          submitted_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "verification_documents_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "verification_documents_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +109,15 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      document_type:
+        | "national_id"
+        | "passport"
+        | "driving_license"
+        | "utility_bill"
+        | "student_id"
+        | "employment_letter"
+      user_type: "landlord" | "tenant"
+      verification_status: "pending" | "verified" | "rejected" | "not_started"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +244,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      document_type: [
+        "national_id",
+        "passport",
+        "driving_license",
+        "utility_bill",
+        "student_id",
+        "employment_letter",
+      ],
+      user_type: ["landlord", "tenant"],
+      verification_status: ["pending", "verified", "rejected", "not_started"],
+    },
   },
 } as const
