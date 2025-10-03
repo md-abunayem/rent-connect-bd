@@ -8,9 +8,9 @@ import PropertyDetails from "./pages/PropertyDetails";
 import PropertySearchResults from "./pages/PropertySearchResults";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
-import LandlordDashboard from "./pages/LandlordDashboard";
-import LandlordListings from "./pages/LandlordListings";
-import CreateListing from "./pages/CreateListing";
+import LandlordDashboard from "./pages/landlord/Dashboard";
+import LandlordListings from "./pages/landlord/Listings";
+import CreateListing from "./pages/landlord/CreateListing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

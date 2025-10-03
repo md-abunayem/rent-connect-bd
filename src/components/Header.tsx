@@ -67,6 +67,19 @@ const Header = () => {
 
         {/* Auth Buttons */}
         <div className="hidden md:flex items-center gap-2">
+          {user && profile?.user_type === 'landlord' && (
+            <>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="font-medium px-4 py-2 rounded-full hover:bg-muted/50 transition-all"
+                onClick={() => navigate('/landlord/dashboard')}
+              >
+                Dashboard
+              </Button>
+              <div className="w-px h-6 bg-border mx-2"></div>
+            </>
+          )}
           <Button 
             variant="ghost" 
             size="sm" 
