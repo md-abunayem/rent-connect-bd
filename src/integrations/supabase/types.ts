@@ -50,6 +50,101 @@ export type Database = {
         }
         Relationships: []
       }
+      properties: {
+        Row: {
+          amenities: string[] | null
+          area_sqft: number | null
+          available_from: string | null
+          bathrooms: number | null
+          bedrooms: number | null
+          created_at: string
+          description: string | null
+          id: string
+          images: string[] | null
+          inquiries_count: number
+          is_featured: boolean
+          is_verified: boolean
+          landlord_id: string
+          location_address: string
+          location_city: string
+          location_country: string
+          location_lat: number | null
+          location_lng: number | null
+          location_state: string | null
+          price_currency: string
+          price_monthly: number
+          property_type: string
+          status: string
+          title: string
+          updated_at: string
+          views_count: number
+        }
+        Insert: {
+          amenities?: string[] | null
+          area_sqft?: number | null
+          available_from?: string | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          inquiries_count?: number
+          is_featured?: boolean
+          is_verified?: boolean
+          landlord_id: string
+          location_address: string
+          location_city: string
+          location_country?: string
+          location_lat?: number | null
+          location_lng?: number | null
+          location_state?: string | null
+          price_currency?: string
+          price_monthly: number
+          property_type: string
+          status?: string
+          title: string
+          updated_at?: string
+          views_count?: number
+        }
+        Update: {
+          amenities?: string[] | null
+          area_sqft?: number | null
+          available_from?: string | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          inquiries_count?: number
+          is_featured?: boolean
+          is_verified?: boolean
+          landlord_id?: string
+          location_address?: string
+          location_city?: string
+          location_country?: string
+          location_lat?: number | null
+          location_lng?: number | null
+          location_state?: string | null
+          price_currency?: string
+          price_monthly?: number
+          property_type?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          views_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "properties_landlord_id_fkey"
+            columns: ["landlord_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       verification_documents: {
         Row: {
           document_type: Database["public"]["Enums"]["document_type"]
