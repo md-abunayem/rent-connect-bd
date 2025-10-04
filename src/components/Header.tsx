@@ -77,6 +77,27 @@ const Header = () => {
               >
                 Dashboard
               </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="font-medium px-4 py-2 rounded-full hover:bg-muted/50 transition-all"
+                onClick={() => navigate('/landlord/applications')}
+              >
+                Applications
+              </Button>
+              <div className="w-px h-6 bg-border mx-2"></div>
+            </>
+          )}
+          {user && profile?.user_type === 'tenant' && (
+            <>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="font-medium px-4 py-2 rounded-full hover:bg-muted/50 transition-all"
+                onClick={() => navigate('/tenant/dashboard')}
+              >
+                My Dashboard
+              </Button>
               <div className="w-px h-6 bg-border mx-2"></div>
             </>
           )}

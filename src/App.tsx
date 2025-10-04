@@ -8,9 +8,12 @@ import PropertyDetails from "./pages/PropertyDetails";
 import PropertySearchResults from "./pages/PropertySearchResults";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
-import LandlordDashboard from "./pages/landlord/Dashboard";
-import LandlordListings from "./pages/landlord/Listings";
-import CreateListing from "./pages/landlord/CreateListing";
+import Dashboard from "./pages/landlord/Dashboard";
+import Listings from "./pages/landlord/Listings";
+import CreateListingPage from "./pages/landlord/CreateListing";
+import Applications from "./pages/landlord/Applications";
+import Apply from "./pages/Apply";
+import TenantDashboard from "./pages/tenant/Dashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,10 +30,12 @@ const App = () => (
           <Route path="/property/:id" element={<PropertyDetails />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/landlord/dashboard" element={<LandlordDashboard />} />
-          <Route path="/landlord/listings" element={<LandlordListings />} />
-          <Route path="/landlord/create-listing" element={<CreateListing />} />
-          <Route path="/landlord/applications" element={<LandlordDashboard />} />
+          <Route path="/landlord/dashboard" element={<Dashboard />} />
+          <Route path="/landlord/listings" element={<Listings />} />
+          <Route path="/landlord/create-listing" element={<CreateListingPage />} />
+          <Route path="/landlord/applications" element={<Applications />} />
+          <Route path="/apply/:propertyId" element={<Apply />} />
+          <Route path="/tenant/dashboard" element={<TenantDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

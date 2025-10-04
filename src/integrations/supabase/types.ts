@@ -14,6 +14,124 @@ export type Database = {
   }
   public: {
     Tables: {
+      applications: {
+        Row: {
+          additional_notes: string | null
+          background_check_authorized: boolean | null
+          created_at: string
+          current_address: string
+          email: string
+          employer_name: string | null
+          employment_duration: string | null
+          employment_status: string
+          full_name: string
+          has_pets: boolean | null
+          id: string
+          id_document_url: string | null
+          income_proof_url: string | null
+          job_title: string | null
+          monthly_income: number | null
+          move_in_date: string | null
+          number_of_occupants: number | null
+          pet_details: string | null
+          phone: string
+          property_id: string
+          reference_name: string | null
+          reference_phone: string | null
+          reference_relationship: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          additional_notes?: string | null
+          background_check_authorized?: boolean | null
+          created_at?: string
+          current_address: string
+          email: string
+          employer_name?: string | null
+          employment_duration?: string | null
+          employment_status: string
+          full_name: string
+          has_pets?: boolean | null
+          id?: string
+          id_document_url?: string | null
+          income_proof_url?: string | null
+          job_title?: string | null
+          monthly_income?: number | null
+          move_in_date?: string | null
+          number_of_occupants?: number | null
+          pet_details?: string | null
+          phone: string
+          property_id: string
+          reference_name?: string | null
+          reference_phone?: string | null
+          reference_relationship?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          additional_notes?: string | null
+          background_check_authorized?: boolean | null
+          created_at?: string
+          current_address?: string
+          email?: string
+          employer_name?: string | null
+          employment_duration?: string | null
+          employment_status?: string
+          full_name?: string
+          has_pets?: boolean | null
+          id?: string
+          id_document_url?: string | null
+          income_proof_url?: string | null
+          job_title?: string | null
+          monthly_income?: number | null
+          move_in_date?: string | null
+          number_of_occupants?: number | null
+          pet_details?: string | null
+          phone?: string
+          property_id?: string
+          reference_name?: string | null
+          reference_phone?: string | null
+          reference_relationship?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applications_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string | null

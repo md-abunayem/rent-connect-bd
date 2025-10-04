@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Share2, MapPin, Star, Shield, CheckCircle, Calendar, Users, Car, Wifi, Dumbbell, Coffee, Phone, Mail, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -85,6 +85,7 @@ const similarProperties = [
 
 const PropertyDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorited, setIsFavorited] = useState(false);
   const [message, setMessage] = useState('');
@@ -339,6 +340,13 @@ const PropertyDetails = () => {
                 <Button className="w-full">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Send Message
+                </Button>
+                <Button 
+                  className="w-full" 
+                  variant="default"
+                  onClick={() => navigate(`/apply/${id}`)}
+                >
+                  Apply Now
                 </Button>
               </CardContent>
             </Card>
