@@ -391,9 +391,9 @@ const Index = () => {
           </div>
 
           <Carousel className="w-full">
-            <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselContent className="-ml-2 md:-ml-3">
               {studentDormsNearUniversities.map((property) => (
-                <CarouselItem key={property.id} className="pl-2 md:pl-4 basis-[280px] md:basis-[320px]">
+                <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
                   <PropertyCard property={property} />
                 </CarouselItem>
               ))}
@@ -413,9 +413,9 @@ const Index = () => {
           </div>
 
           <Carousel className="w-full">
-            <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselContent className="-ml-2 md:-ml-3">
               {industryWorkerHousing.map((property) => (
-                <CarouselItem key={property.id} className="pl-2 md:pl-4 basis-[280px] md:basis-[320px]">
+                <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
                   <PropertyCard property={property} />
                 </CarouselItem>
               ))}
@@ -435,9 +435,9 @@ const Index = () => {
           </div>
 
           <Carousel className="w-full">
-            <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselContent className="-ml-2 md:-ml-3">
               {budgetAccommodations.map((property) => (
-                <CarouselItem key={property.id} className="pl-2 md:pl-4 basis-[280px] md:basis-[320px]">
+                <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
                   <PropertyCard property={property} />
                 </CarouselItem>
               ))}
