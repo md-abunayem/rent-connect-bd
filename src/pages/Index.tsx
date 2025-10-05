@@ -340,20 +340,20 @@ const Index = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-20 px-4">
+      <section className="py-12 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-16 animate-slide-up">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="text-center mb-8 animate-slide-up">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
               Choose Your Housing Type
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto">
               Whether you're a student or worker, find accommodation that fits your needs and budget
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
             {categories.map((category, index) => (
-              <div key={category.title} className="animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
+              <div key={category.title} className="animate-scale-in w-full max-w-[280px] mx-auto" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CategoryCard {...category} />
               </div>
             ))}
