@@ -351,7 +351,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 max-w-4xl mx-auto">
             {categories.map((category, index) => (
               <div key={category.title} className="animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CategoryCard {...category} />
