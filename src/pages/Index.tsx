@@ -332,55 +332,10 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
-      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img 
-            src={heroImage} 
-            alt="Beautiful rental property interior" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/30"></div>
-        </div>
-        
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 text-center">
-          <div className="space-y-8">
-            {/* Main Heading */}
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-                Student Dorms &{' '}
-                <span className="text-primary">Industry Housing</span>
-              </h1>
-              <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-                Affordable, secure accommodation for students and industry workers across Bangladesh
-              </p>
-            </div>
-
-            {/* Search Bar */}
-            <div className="flex justify-center">
-              <div className="w-full max-w-3xl">
-                <SearchBar />
-              </div>
-            </div>
-
-            {/* Trust Stats */}
-            <div className="flex justify-center gap-6 md:gap-12 text-center pt-8">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
-                <div className="text-xl md:text-2xl font-bold text-white">25K+</div>
-                <div className="text-xs md:text-sm text-white/80">Student Beds</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
-                <div className="text-xl md:text-2xl font-bold text-white">15K+</div>
-                <div className="text-xs md:text-sm text-white/80">Worker Housing</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
-                <div className="text-xl md:text-2xl font-bold text-white">4.5★</div>
-                <div className="text-xs md:text-sm text-white/80">Safety Rating</div>
-              </div>
-            </div>
-          </div>
+      {/* Search Section */}
+      <section className="py-12 px-4 bg-muted/30">
+        <div className="container mx-auto max-w-3xl">
+          <SearchBar />
         </div>
       </section>
 
