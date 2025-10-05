@@ -10,22 +10,19 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ title, description, icon: Icon, image, count }: CategoryCardProps) => {
   return (
-    <div className="group cursor-pointer transition-all duration-300 hover:transform hover:scale-[1.02]">
-      <div className="relative overflow-hidden rounded-2xl aspect-[4/3]">
+    <div className="group cursor-pointer transition-all duration-300 hover:transform hover:scale-105">
+      <div className="relative overflow-hidden rounded-xl aspect-square bg-gradient-to-br from-primary/10 to-primary/5 border border-border/50 hover:border-primary/30 transition-all">
         <img 
           src={image} 
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          className="w-full h-full object-cover opacity-20 group-hover:opacity-30 group-hover:scale-110 transition-all duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <div className="absolute top-2 left-2">
-          <div className="w-7 h-7 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm">
-            <Icon className="w-4 h-4 text-gray-900" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
+          <div className="w-10 h-10 bg-primary/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-2 group-hover:bg-primary/20 transition-colors">
+            <Icon className="w-5 h-5 text-primary" />
           </div>
-        </div>
-        <div className="absolute bottom-2 left-2 right-2">
-          <h3 className="text-white font-semibold text-xs mb-0.5">{title}</h3>
-          <p className="text-white/90 text-xs">{count.toLocaleString()} properties</p>
+          <h3 className="text-foreground font-semibold text-xs mb-1 leading-tight">{title}</h3>
+          <p className="text-muted-foreground text-[10px]">{count.toLocaleString()}</p>
         </div>
       </div>
     </div>

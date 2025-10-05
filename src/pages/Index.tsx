@@ -39,6 +39,27 @@ const categories = [
     icon: Wifi,
     image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=400&fit=crop',
     count: 600
+  },
+  {
+    title: 'Factory Housing',
+    description: 'Accommodation near industrial areas',
+    icon: Building,
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=400&fit=crop',
+    count: 950
+  },
+  {
+    title: 'Hostel Rooms',
+    description: 'Affordable hostel accommodations',
+    icon: Hotel,
+    image: 'https://images.unsplash.com/photo-1555854877-bab0e817e1ef?w=400&h=400&fit=crop',
+    count: 720
+  },
+  {
+    title: 'Verified Stays',
+    description: 'Verified and safe properties',
+    icon: UserCheck,
+    image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=400&fit=crop',
+    count: 840
   }
 ];
 
@@ -351,9 +372,9 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 max-w-7xl mx-auto">
             {categories.map((category, index) => (
-              <div key={category.title} className="animate-scale-in w-full max-w-[280px] mx-auto" style={{ animationDelay: `${index * 0.1}s` }}>
+              <div key={category.title} className="animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CategoryCard {...category} />
               </div>
             ))}
