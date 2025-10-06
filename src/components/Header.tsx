@@ -52,19 +52,6 @@ const Header = () => {
           </span>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
-          <a href="#" className="text-foreground hover:text-primary transition-all font-medium px-4 py-2 rounded-full hover:bg-primary/5">
-            Places to stay
-          </a>
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-all px-4 py-2 rounded-full hover:bg-muted/50">
-            Experiences
-          </a>
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-all px-4 py-2 rounded-full hover:bg-muted/50">
-            Online Experiences
-          </a>
-        </nav>
-
         {/* Auth Buttons */}
         <div className="hidden md:flex items-center gap-2">
           {user && profile?.user_type === 'landlord' && (
