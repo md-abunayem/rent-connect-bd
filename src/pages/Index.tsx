@@ -1,4 +1,5 @@
-import { ArrowRight, Shield, Users, MapPin, Star, CheckCircle, Home, Building, Hotel, UserCheck, ChevronLeft, ChevronRight, GraduationCap, HardHat, Bed, Wifi } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowRight, Shield, Users, MapPin, Star, CheckCircle, Home, Building, Hotel, UserCheck, ChevronLeft, ChevronRight, GraduationCap, HardHat, Bed, Wifi, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
@@ -9,6 +10,7 @@ import PricingPlans from '@/components/PricingPlans';
 import PremiumFeatures from '@/components/PremiumFeatures';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import heroImage from '@/assets/hero-bg.jpg';
+import { supabase } from '@/integrations/supabase/client';
 
 // Mock data for categories focused on Students and Industry
 const categories = [
@@ -349,6 +351,75 @@ const budgetAccommodations = [
 ];
 
 const Index = () => {
+  const [studentProperties, setStudentProperties] = useState<any[]>([]);
+  const [workerProperties, setWorkerProperties] = useState<any[]>([]);
+  const [budgetProperties, setBudgetProperties] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProperties();
+  }, []);
+
+  const fetchProperties = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch student properties (Dhaka area)
+      const { data: studentData } = await supabase
+        .from('properties')
+        .select('*')
+        .eq('status', 'active')
+        .ilike('location_city', '%Dhaka%')
+        .order('created_at', { ascending: false })
+        .limit(7);
+
+      // Fetch worker housing (Chittagong area)
+      const { data: workerData } = await supabase
+        .from('properties')
+        .select('*')
+        .eq('status', 'active')
+        .ilike('location_city', '%Chittagong%')
+        .order('created_at', { ascending: false })
+        .limit(7);
+
+      // Fetch budget accommodations (lower price range)
+      const { data: budgetData } = await supabase
+        .from('properties')
+        .select('*')
+        .eq('status', 'active')
+        .lte('price_monthly', 10000)
+        .order('price_monthly', { ascending: true })
+        .limit(7);
+
+      // Transform data to match PropertyCard interface
+      const transformProperty = (prop: any) => ({
+        id: prop.id,
+        title: prop.title,
+        location: `${prop.location_address}, ${prop.location_city}`,
+        price: prop.price_monthly,
+        images: prop.images || [],
+        rating: 4.5, // Default rating - can be calculated from reviews later
+        reviews: 0, // Can be counted from reviews table later
+        type: prop.property_type,
+        verified: prop.is_verified,
+        features: [
+          prop.bedrooms && `${prop.bedrooms} Bedrooms`,
+          prop.bathrooms && `${prop.bathrooms} Bathrooms`,
+          ...(prop.amenities || []).slice(0, 1)
+        ].filter(Boolean),
+        guestFavourite: prop.is_featured,
+      });
+
+      setStudentProperties((studentData || []).map(transformProperty));
+      setWorkerProperties((workerData || []).map(transformProperty));
+      setBudgetProperties((budgetData || []).map(transformProperty));
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -386,65 +457,95 @@ const Index = () => {
       <section className="py-8 px-4">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">Student dorms near universities</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Properties in Dhaka</h2>
             <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </div>
 
-          <Carousel className="w-full">
-            <CarouselContent className="-ml-2 md:-ml-3">
-              {studentDormsNearUniversities.map((property) => (
-                <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
-                  <PropertyCard property={property} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : studentProperties.length > 0 ? (
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-2 md:-ml-3">
+                {studentProperties.map((property) => (
+                  <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
+                    <PropertyCard property={property} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">
+              <p>No properties found in Dhaka</p>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Industry worker housing in Chittagong */}
+      {/* Properties in Chittagong */}
       <section className="py-8 px-4">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">Industry worker housing in Chittagong</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Properties in Chittagong</h2>
             <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </div>
 
-          <Carousel className="w-full">
-            <CarouselContent className="-ml-2 md:-ml-3">
-              {industryWorkerHousing.map((property) => (
-                <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
-                  <PropertyCard property={property} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : workerProperties.length > 0 ? (
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-2 md:-ml-3">
+                {workerProperties.map((property) => (
+                  <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
+                    <PropertyCard property={property} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">
+              <p>No properties found in Chittagong</p>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Affordable options in Sylhet */}
+      {/* Budget-friendly options */}
       <section className="py-8 px-4">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">Budget-friendly options in Sylhet</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Budget-friendly options</h2>
             <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </div>
 
-          <Carousel className="w-full">
-            <CarouselContent className="-ml-2 md:-ml-3">
-              {budgetAccommodations.map((property) => (
-                <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
-                  <PropertyCard property={property} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : budgetProperties.length > 0 ? (
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-2 md:-ml-3">
+                {budgetProperties.map((property) => (
+                  <CarouselItem key={property.id} className="pl-2 md:pl-3 basis-[280px] sm:basis-[240px] md:basis-[200px] lg:basis-[180px] xl:basis-[calc(100%/7-12px)]">
+                    <PropertyCard property={property} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">
+              <p>No budget properties found</p>
+            </div>
+          )}
 
           <div className="text-center mt-12">
             <Button size="lg" variant="outline" className="font-medium px-8 hover:bg-muted hover:scale-105 transition-all shadow-medium" asChild>

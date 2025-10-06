@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Grid, List, Map, Filter, SlidersHorizontal, MapPin, Star, Shield, ChevronDown } from 'lucide-react';
+import { Grid, List, Map, Filter, SlidersHorizontal, MapPin, Star, Shield, ChevronDown, Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -13,105 +14,13 @@ import { Separator } from '@/components/ui/separator';
 import Header from '@/components/Header';
 import PropertyCard from '@/components/PropertyCard';
 
-// Mock properties data
-const mockProperties = [
-  {
-    id: '1',
-    title: 'Modern 3-Bedroom Apartment in Gulshan',
-    location: 'Gulshan 2, Dhaka',
-    price: 45000,
-    images: ['https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80'],
-    rating: 4.8,
-    reviews: 24,
-    type: 'Apartment',
-    verified: true,
-    features: ['3 Bedrooms', '2 Bathrooms', 'Balcony', 'Parking', 'WiFi', 'Gym Access'],
-    amenities: ['wifi', 'parking', 'gym', 'balcony'],
-    area: 1200,
-    posted: '2024-01-15'
-  },
-  {
-    id: '2',
-    title: 'Cozy 2-Bedroom in Dhanmondi',
-    location: 'Dhanmondi 15, Dhaka',
-    price: 35000,
-    images: ['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=80'],
-    rating: 4.6,
-    reviews: 18,
-    type: 'Apartment',
-    verified: true,
-    features: ['2 Bedrooms', '1 Bathroom', 'Balcony'],
-    amenities: ['wifi', 'balcony'],
-    area: 900,
-    posted: '2024-01-10'
-  },
-  {
-    id: '3',
-    title: 'Luxury Studio in Banani',
-    location: 'Banani DOHS, Dhaka',
-    price: 28000,
-    images: ['https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=400&q=80'],
-    rating: 4.7,
-    reviews: 31,
-    type: 'Studio',
-    verified: true,
-    features: ['Studio', '1 Bathroom', 'Furnished'],
-    amenities: ['wifi', 'furnished', 'security'],
-    area: 500,
-    posted: '2024-01-20'
-  },
-  {
-    id: '4',
-    title: 'Spacious 4-Bedroom House in Uttara',
-    location: 'Uttara Sector 7, Dhaka',
-    price: 60000,
-    images: ['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80'],
-    rating: 4.9,
-    reviews: 12,
-    type: 'House',
-    verified: false,
-    features: ['4 Bedrooms', '3 Bathrooms', 'Garden', 'Parking', 'Rooftop'],
-    amenities: ['parking', 'garden', 'rooftop'],
-    area: 2000,
-    posted: '2024-01-08'
-  },
-  {
-    id: '5',
-    title: 'Affordable Room in Mirpur',
-    location: 'Mirpur 10, Dhaka',
-    price: 15000,
-    images: ['https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=400&q=80'],
-    rating: 4.3,
-    reviews: 8,
-    type: 'Room',
-    verified: true,
-    features: ['1 Room', 'Shared Bathroom', 'WiFi'],
-    amenities: ['wifi', 'shared_kitchen'],
-    area: 200,
-    posted: '2024-01-12'
-  },
-  {
-    id: '6',
-    title: 'Executive Apartment in Motijheel',
-    location: 'Motijheel Commercial Area, Dhaka',
-    price: 42000,
-    images: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&q=80'],
-    rating: 4.5,
-    reviews: 22,
-    type: 'Apartment',
-    verified: true,
-    features: ['2 Bedrooms', '2 Bathrooms', 'City View', 'Elevator'],
-    amenities: ['wifi', 'elevator', 'city_view'],
-    area: 1000,
-    posted: '2024-01-18'
-  }
-];
-
 const PropertySearchResults = () => {
   const [searchParams] = useSearchParams();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showMap, setShowMap] = useState(false);
   const [sortBy, setSortBy] = useState('relevance');
+  const [loading, setLoading] = useState(true);
+  const [properties, setProperties] = useState<any[]>([]);
   
   // Filter states
   const [priceRange, setPriceRange] = useState([10000, 100000]);
@@ -122,9 +31,64 @@ const PropertySearchResults = () => {
   const query = searchParams.get('q') || '';
   const location = searchParams.get('location') || '';
 
+  useEffect(() => {
+    fetchProperties();
+  }, []);
+
+  const fetchProperties = async () => {
+    try {
+      setLoading(true);
+      let queryBuilder = supabase
+        .from('properties')
+        .select('*')
+        .eq('status', 'active');
+
+      // Apply search query
+      if (query) {
+        queryBuilder = queryBuilder.or(`title.ilike.%${query}%,description.ilike.%${query}%`);
+      }
+
+      // Apply location filter
+      if (location) {
+        queryBuilder = queryBuilder.or(`location_city.ilike.%${location}%,location_address.ilike.%${location}%`);
+      }
+
+      const { data, error } = await queryBuilder.order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Transform data to match component interface
+      const transformedData = (data || []).map((prop: any) => ({
+        id: prop.id,
+        title: prop.title,
+        location: `${prop.location_address}, ${prop.location_city}`,
+        price: prop.price_monthly,
+        images: prop.images || [],
+        rating: 4.5,
+        reviews: 0,
+        type: prop.property_type,
+        verified: prop.is_verified,
+        features: [
+          prop.bedrooms && `${prop.bedrooms} Bedrooms`,
+          prop.bathrooms && `${prop.bathrooms} Bathrooms`,
+          ...(prop.amenities || []).slice(0, 2)
+        ].filter(Boolean),
+        amenities: prop.amenities || [],
+        area: prop.area_sqft,
+        posted: prop.created_at,
+      }));
+
+      setProperties(transformedData);
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Filter and sort properties
   const filteredProperties = useMemo(() => {
-    let filtered = mockProperties.filter(property => {
+    let filtered = properties.filter(property => {
       // Text search
       if (query && !property.title.toLowerCase().includes(query.toLowerCase()) && 
           !property.location.toLowerCase().includes(query.toLowerCase())) {
@@ -180,7 +144,7 @@ const PropertySearchResults = () => {
     }
 
     return filtered;
-  }, [query, location, priceRange, selectedTypes, selectedAmenities, verifiedOnly, sortBy]);
+  }, [properties, query, location, priceRange, selectedTypes, selectedAmenities, verifiedOnly, sortBy]);
 
   const propertyTypes = ['Apartment', 'House', 'Studio', 'Room'];
   const amenityOptions = [
@@ -306,7 +270,7 @@ const PropertySearchResults = () => {
     </div>
   );
 
-  const PropertyListItem = ({ property }: { property: typeof mockProperties[0] }) => (
+  const PropertyListItem = ({ property }: { property: any }) => (
     <Card className="hover:shadow-medium transition-all duration-300">
       <CardContent className="p-4">
         <div className="flex gap-4">
@@ -478,7 +442,11 @@ const PropertySearchResults = () => {
 
           {/* Results Content */}
           <div className="flex-1">
-            {showMap && (
+            {loading ? (
+              <div className="flex justify-center py-20">
+                <Loader2 className="w-12 h-12 animate-spin text-primary" />
+              </div>
+            ) : showMap ? (
               <Card className="mb-6">
                 <CardContent className="p-4">
                   <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
@@ -489,9 +457,9 @@ const PropertySearchResults = () => {
                   </div>
                 </CardContent>
               </Card>
-            )}
+            ) : null}
 
-            {filteredProperties.length > 0 ? (
+            {!loading && filteredProperties.length > 0 ? (
               <div className={
                 viewMode === 'grid' 
                   ? "grid md:grid-cols-2 xl:grid-cols-3 gap-6"
@@ -505,7 +473,7 @@ const PropertySearchResults = () => {
                   )
                 ))}
               </div>
-            ) : (
+            ) : !loading ? (
               <Card>
                 <CardContent className="p-12 text-center">
                   <div className="text-muted-foreground">
@@ -518,7 +486,7 @@ const PropertySearchResults = () => {
                   </div>
                 </CardContent>
               </Card>
-            )}
+            ) : null}
 
             {/* Pagination placeholder */}
             {filteredProperties.length > 0 && (
