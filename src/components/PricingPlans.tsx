@@ -155,20 +155,6 @@ const PricingPlans = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Enterprise Solutions Available
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Need custom features for your property management company? We offer white-label solutions, 
-              custom integrations, and dedicated support for large-scale operations.
-            </p>
-            <Button variant="outline" size="lg">
-              Schedule a Demo
-            </Button>
-          </div>
-        </div>
       </div>
     </section>
   );
