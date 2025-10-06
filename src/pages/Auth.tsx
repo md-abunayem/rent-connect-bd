@@ -91,23 +91,29 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-secondary/10 to-background p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-6">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/")}
-            className="mb-4"
-          >
-            <Home className="mr-2 h-4 w-4" />
-            Back to Home
-          </Button>
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Shield className="h-8 w-8 text-primary" />
-            <h1 className="text-3xl font-bold">HavenHub</h1>
+    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/10 to-background p-4">
+      {/* Back to Home Link - Top Left */}
+      <div className="container mx-auto pt-6">
+        <Button
+          variant="ghost"
+          onClick={() => navigate("/")}
+          className="text-foreground hover:text-primary"
+        >
+          <Home className="mr-2 h-5 w-5" />
+          Back to Home
+        </Button>
+      </div>
+
+      {/* Auth Form - Centered */}
+      <div className="flex items-center justify-center min-h-[calc(100vh-120px)]">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-6">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Shield className="h-8 w-8 text-primary" />
+              <h1 className="text-3xl font-bold">HavenHub</h1>
+            </div>
+            <p className="text-muted-foreground">Trusted Housing Platform</p>
           </div>
-          <p className="text-muted-foreground">Trusted Housing Platform</p>
-        </div>
 
         <Card>
           <CardHeader>
@@ -217,6 +223,7 @@ const Auth = () => {
             </Tabs>
           </CardContent>
         </Card>
+        </div>
       </div>
     </div>
   );
