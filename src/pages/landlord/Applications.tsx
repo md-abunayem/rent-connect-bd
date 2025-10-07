@@ -124,7 +124,13 @@ export default function Applications() {
 
       if (error) throw error;
 
-      toast.success(`Application ${status}`);
+      const statusMessage = status === 'approved' 
+        ? '✅ Application approved successfully! The tenant will be notified.' 
+        : status === 'rejected' 
+        ? 'Application rejected and tenant has been notified.' 
+        : `Application status updated to ${status}`;
+      
+      toast.success(statusMessage);
       fetchApplications();
       setShowRejectDialog(false);
       setSelectedApplication(null);

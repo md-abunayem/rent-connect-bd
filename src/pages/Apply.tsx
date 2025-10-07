@@ -66,6 +66,13 @@ export default function Apply() {
       .single();
     
     if (profile) {
+      // Check if user is a tenant
+      if (profile.user_type !== "tenant") {
+        toast.error("Only tenants can submit rental applications");
+        navigate("/");
+        return;
+      }
+      
       setFormData(prev => ({
         ...prev,
         full_name: profile.full_name || "",
